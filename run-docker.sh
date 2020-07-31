@@ -10,8 +10,9 @@ spatial auth logout && spatial auth login
 BUILD_DIR=$(readlink -f $1)
 AUTH_DIR=~/.improbable
 
+rm -rf ${BUILD_DIR}
 mkdir -p ${BUILD_DIR}
 
 docker build -t shoveler-spatialos-release .
-docker run -v ${BUILD_DIR}:/root/build -v "${AUTH_DIR}:/root/.improbable" -i -t shoveler-spatialos-release /root/build-release.sh $2
+docker run --user `id -u`:`id -g` -v ${BUILD_DIR}:/home/build/build -v "${AUTH_DIR}:/home/build/.improbable" -i -t shoveler-spatialos-release /home/build/build-release.sh $2
 

@@ -5,7 +5,7 @@ if [ $# -lt 1 ]; then
 	exit 0 
 fi
 
-cd /root/build
+cd /home/build/build
 rm -rf *
 git clone --single-branch --branch $1 https://github.com/FabianHahn/shoveler-spatialos
 cd shoveler-spatialos

@@ -20,8 +20,12 @@ RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/nul
 RUN wget -q -O /bin/spatial https://console.improbable.io/toolbelt/download/latest/linux && \
 	chmod +x /bin/spatial
 
-COPY build-release.sh /root/build-release.sh
-RUN chmod +x /root/build-release.sh
+RUN addgroup -gid 1006 build && adduser --system --shell /bin/bash -uid 1002 -gid 1006 build
 
-CMD ["/root/build-release.sh"]
+COPY build-release.sh /home/build/build-release.sh
+RUN chmod +x /home/build/build-release.sh
+
+USER build
+
+CMD ["/home/build/build-release.sh"]
 
